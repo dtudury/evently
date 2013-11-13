@@ -22,7 +22,7 @@ exports.dispatcher = function () {
 
     function dispatch(id) {
         var event, args;
-        if (event = eventMap[id]){
+        if (event = eventMap[id]) {
             args = [].slice.call(arguments, 1);
             event.forEach(function (f) {
                 f.apply(null, args);
@@ -36,20 +36,3 @@ exports.dispatcher = function () {
     this.dispatch = dispatch;
     this.trigger = dispatch;
 };
-
-var d = new exports.dispatcher();
-
-function log(a, b) {
-    console.log("triggered with " + a + " " + b);
-}
-
-d.on("a", log);
-d.dispatch("a", 1, 2); // "triggered with 1 2"
-
-d.on("b", log);
-d.off("b", log);
-d.dispatch("b", 3, 4); // no effect
-
-d.once('c', log);
-d.dispatch("c", 5, 6);
-d.dispatch("c", 7, 8); // "triggered with 5 6"
