@@ -9,7 +9,7 @@ exports.dispatcher = function () {
     function off(id, f) {
         var event, index;
         if ((event = eventMap[id]) && ~(index = event.indexOf(f))) {
-            eventMap[id].splice(index, 1);
+            event.splice(index, 1);
         }
     }
 
