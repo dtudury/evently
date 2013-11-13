@@ -14,18 +14,17 @@ exports.dispatcher = function () {
     }
 
     function once(id, f) {
-        on(id, function wrapped() {
+        on(id, function wrapped(event) {
             off(id, wrapped);
-            f.apply(null, arguments);
+            f(event);
         })
     }
 
-    function dispatch(id) {
+    function dispatch(id, event) {
         var eventMap, args;
         if (eventMap = eventMaps[id]) {
-            args = [].slice.call(arguments, 1);
             eventMap.forEach(function (f) {
-                f.apply(null, args);
+                f(event);
             });
         }
     }

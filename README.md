@@ -21,18 +21,18 @@ var evently = require('evently');
 
 var d = new evently.dispatcher();
 
-function log(a, b) {
-    console.log("triggered with " + a + " " + b);
+function log(a) {
+    console.log("triggered with " + a);
 }
 
 d.on("a", log);
-d.dispatch("a", 1, 2); // "triggered with 1 2"
+d.dispatch("a", [1, 2]); // "triggered with 1,2"
 
 d.on("b", log);
 d.off("b", log);
-d.dispatch("b", 3, 4); // no effect
+d.dispatch("b", "three"); // no effect
 
 d.once('c', log);
-d.dispatch("c", 5, 6); // "triggered with 5 6"
-d.dispatch("c", 7, 8); // no effect
+d.dispatch("c", 4); // "triggered with 4"
+d.dispatch("c", {a:5, b:6});
 ```
