@@ -1,15 +1,15 @@
 exports.dispatcher = function () {
-    var eventMap = {};
+    var eventMaps = {};
 
     function on(id, f) {
         off(id, f);
-        (eventMap[id] || (eventMap[id] = [])).push(f);
+        (eventMaps[id] || (eventMaps[id] = [])).push(f);
     }
 
     function off(id, f) {
-        var event, index;
-        if ((event = eventMap[id]) && ~(index = event.indexOf(f))) {
-            event.splice(index, 1);
+        var eventMap, index;
+        if ((eventMap = eventMaps[id]) && ~(index = eventMap.indexOf(f))) {
+            eventMap.splice(index, 1);
         }
     }
 
@@ -21,10 +21,10 @@ exports.dispatcher = function () {
     }
 
     function dispatch(id) {
-        var event, args;
-        if (event = eventMap[id]) {
+        var eventMap, args;
+        if (eventMap = eventMaps[id]) {
             args = [].slice.call(arguments, 1);
-            event.forEach(function (f) {
+            eventMap.forEach(function (f) {
                 f.apply(null, args);
             });
         }
