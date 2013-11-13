@@ -3,7 +3,7 @@ exports.dispatcher = function () {
 
     function on(id, f) {
         off(id, f);
-        (eventMap[id] = eventMap[id] || []).push(f);
+        (eventMap[id] || (eventMap[id] = [])).push(f);
     }
 
     function off(id, f) {
@@ -14,8 +14,7 @@ exports.dispatcher = function () {
     }
 
     function once(id, f) {
-        var wrapped;
-        on(id, wrapped = function() {
+        on(id, function wrapped() {
             off(id, wrapped);
             f.apply(null, arguments);
         })
@@ -35,4 +34,22 @@ exports.dispatcher = function () {
     this.once = once;
     this.off = off;
     this.dispatch = dispatch;
+    this.trigger = dispatch;
 };
+
+var d = new exports.dispatcher();
+
+function log(a, b) {
+    console.log("triggered with " + a + " " + b);
+}
+
+d.on("a", log);
+d.dispatch("a", 1, 2); // "triggered with 1 2"
+
+d.on("b", log);
+d.off("b", log);
+d.dispatch("b", 3, 4); // no effect
+
+d.once('c', log);
+d.dispatch("c", 5, 6);
+d.dispatch("c", 7, 8); // "triggered with 5 6"
