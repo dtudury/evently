@@ -33,6 +33,6 @@ d.off("b", log);
 d.dispatch("b", 3, 4); // no effect
 
 d.once('c', log);
-d.dispatch("c", 5, 6);
-d.dispatch("c", 7, 8); // "triggered with 5 6"
+d.dispatch("c", 5, 6); // "triggered with 5 6"
+d.dispatch("c", 7, 8); // no effect
 ```
