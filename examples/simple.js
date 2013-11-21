@@ -21,4 +21,3 @@ d.stopListening();
 d.dispatch("a", [1, 2]); // no effect
 d.dispatch("b", "three"); // no effect
 d.dispatch("c", {a:5, b:6}); // no effect
-
