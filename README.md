@@ -1,14 +1,6 @@
-evently
-=======
-
-simple js event-like function stacks
-
-
 # evently
 
   simple js event-like function stacks
-
- [![Build Status](https://secure.travis-ci.org/visionmedia/commander.js.png)](http://travis-ci.org/visionmedia/commander.js)
 
 ## Installation
 
