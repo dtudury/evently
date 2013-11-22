@@ -2,6 +2,8 @@
 
   simple js event-like function stacks
 
+  [![Build Status](https://travis-ci.org/dtudury/evently.png)](https://travis-ci.org/dtudury/evently)
+
 ## Installation
 
     $ npm install evently

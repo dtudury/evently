@@ -4,8 +4,8 @@ var evently = require('../index');
 
 describe('evently', function () {
     describe('Dispatcher', function () {
-        describe('#on', function () {
-            it('should fire events', function () {
+        describe('#once', function () {
+            it('should fire once', function () {
                 var dispatcher = new evently.Dispatcher();
                 var aCount = 0;
                 var bCount = 0;
@@ -15,8 +15,8 @@ describe('evently', function () {
                 var bCounter = function () {
                     bCount++;
                 }
-                dispatcher.on("a", aCounter);
-                dispatcher.on("b", bCounter);
+                dispatcher.once("a", aCounter);
+                dispatcher.once("b", bCounter);
                 dispatcher.trigger("a");
                 dispatcher.trigger("a");
                 dispatcher.trigger("b");
@@ -24,14 +24,14 @@ describe('evently', function () {
                 dispatcher.trigger("b");
                 dispatcher.trigger("a");
                 dispatcher.trigger("a");
-                assert(aCount === 4);
-                assert(bCount === 3);
+                assert(aCount === 1);
+                assert(bCount === 1);
             });
         });
     });
     describe('static', function () {
-        describe('#on', function () {
-            it('should fire events', function () {
+        describe('#once', function () {
+            it('should fire once', function () {
                 var StaticDispatcher = evently.static;
                 var aCount = 0;
                 var bCount = 0;
@@ -41,8 +41,8 @@ describe('evently', function () {
                 var bCounter = function () {
                     bCount++;
                 }
-                StaticDispatcher.on("a", aCounter);
-                StaticDispatcher.on("b", bCounter);
+                StaticDispatcher.once("a", aCounter);
+                StaticDispatcher.once("b", bCounter);
                 StaticDispatcher.trigger("a");
                 StaticDispatcher.trigger("a");
                 StaticDispatcher.trigger("b");
@@ -50,10 +50,12 @@ describe('evently', function () {
                 StaticDispatcher.trigger("b");
                 StaticDispatcher.trigger("a");
                 StaticDispatcher.trigger("a");
-                assert(aCount === 4);
-                assert(bCount === 3);
+                assert(aCount === 1);
+                assert(bCount === 1);
             });
         });
     });
 });
+
+
 

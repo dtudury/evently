@@ -17,11 +17,7 @@ describe('evently.Dispatcher', function () {
             bCount++;
         });
         a.trigger("x");
-
-
         assert(aCount === 1);
         assert(bCount === 0);
-
-
     });
 });

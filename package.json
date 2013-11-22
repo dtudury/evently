@@ -1,6 +1,6 @@
 {
   "name": "evently",
-  "version": "2.1.2-test+master-2013.11.22-2",
+  "version": "2.1.3",
   "description": "simple event-like function stacks",
   "main": "index.js",
   "scripts": {

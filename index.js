@@ -1,14 +1,14 @@
 function Dispatcher() {
 
 
-    this.off = this.removeEventListener = function (id, f) {
+    this.off = this.removeListener = this.removeEventListener = function (id, f) {
         var map, index, maps = (this.maps || (this.maps = {}));
         if ((map = maps[id]) && ~(index = map.indexOf(f)))
             map.splice(index, 1);
     }
 
 
-    this.on = this.addListener = function (id, f) {
+    this.on = this.addListener = this.addEventListener = function (id, f) {
         this.off(id, f);
         (this.maps[id] || (this.maps[id] = [])).push(f);
     }
@@ -23,7 +23,7 @@ function Dispatcher() {
     }
 
 
-    this.stopListening = this.removeAllEventListeners = function (id) {
+    this.stop = this.stopListening = this.removeAllEventListeners = function (id) {
         if (this.maps && id)
             delete this.maps[id];
         else

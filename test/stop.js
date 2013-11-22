@@ -4,8 +4,8 @@ var evently = require('../index');
 
 describe('evently', function () {
     describe('Dispatcher', function () {
-        describe('#on', function () {
-            it('should fire events', function () {
+        describe('#stop', function () {
+            it('should stop events firing', function () {
                 var dispatcher = new evently.Dispatcher();
                 var aCount = 0;
                 var bCount = 0;
@@ -20,18 +20,19 @@ describe('evently', function () {
                 dispatcher.trigger("a");
                 dispatcher.trigger("a");
                 dispatcher.trigger("b");
+                dispatcher.stop("a");
                 dispatcher.trigger("b");
                 dispatcher.trigger("b");
                 dispatcher.trigger("a");
                 dispatcher.trigger("a");
-                assert(aCount === 4);
+                assert(aCount === 2);
                 assert(bCount === 3);
             });
         });
     });
     describe('static', function () {
-        describe('#on', function () {
-            it('should fire events', function () {
+        describe('#stop', function () {
+            it('should stop events firing', function () {
                 var StaticDispatcher = evently.static;
                 var aCount = 0;
                 var bCount = 0;
@@ -46,14 +47,17 @@ describe('evently', function () {
                 StaticDispatcher.trigger("a");
                 StaticDispatcher.trigger("a");
                 StaticDispatcher.trigger("b");
+                StaticDispatcher.stop();
                 StaticDispatcher.trigger("b");
                 StaticDispatcher.trigger("b");
                 StaticDispatcher.trigger("a");
                 StaticDispatcher.trigger("a");
-                assert(aCount === 4);
-                assert(bCount === 3);
+                assert(aCount === 2);
+                assert(bCount === 1);
             });
         });
     });
 });
+
+
 
