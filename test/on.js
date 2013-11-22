@@ -1,4 +1,5 @@
 var assert = require('assert');
+var sinon = require('sinon');
 var evently = require('../index');
 
 
@@ -9,12 +10,8 @@ describe('evently', function () {
                 var dispatcher = new evently.Dispatcher();
                 var aCount = 0;
                 var bCount = 0;
-                var aCounter = function () {
-                    aCount++;
-                }
-                var bCounter = function () {
-                    bCount++;
-                }
+                var aCounter = sinon.spy();
+                var bCounter = sinon.spy();
                 dispatcher.on("a", aCounter);
                 dispatcher.on("b", bCounter);
                 dispatcher.trigger("a");
@@ -24,8 +21,8 @@ describe('evently', function () {
                 dispatcher.trigger("b");
                 dispatcher.trigger("a");
                 dispatcher.trigger("a");
-                assert(aCount === 4);
-                assert(bCount === 3);
+                assert.equal(aCounter.callCount, 4);
+                assert.equal(bCounter.callCount, 3);
             });
         });
     });
@@ -35,12 +32,8 @@ describe('evently', function () {
                 var StaticDispatcher = evently.static;
                 var aCount = 0;
                 var bCount = 0;
-                var aCounter = function () {
-                    aCount++;
-                }
-                var bCounter = function () {
-                    bCount++;
-                }
+                var aCounter = sinon.spy();
+                var bCounter = sinon.spy();
                 StaticDispatcher.on("a", aCounter);
                 StaticDispatcher.on("b", bCounter);
                 StaticDispatcher.trigger("a");
@@ -50,8 +43,8 @@ describe('evently', function () {
                 StaticDispatcher.trigger("b");
                 StaticDispatcher.trigger("a");
                 StaticDispatcher.trigger("a");
-                assert(aCount === 4);
-                assert(bCount === 3);
+                assert.equal(aCounter.callCount, 4);
+                assert.equal(bCounter.callCount, 3);
             });
         });
     });

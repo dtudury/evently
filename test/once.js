@@ -1,4 +1,5 @@
 var assert = require('assert');
+var sinon = require('sinon');
 var evently = require('../index');
 
 
@@ -7,14 +8,8 @@ describe('evently', function () {
         describe('#once', function () {
             it('should fire once', function () {
                 var dispatcher = new evently.Dispatcher();
-                var aCount = 0;
-                var bCount = 0;
-                var aCounter = function () {
-                    aCount++;
-                }
-                var bCounter = function () {
-                    bCount++;
-                }
+                var aCounter = sinon.spy();
+                var bCounter = sinon.spy();
                 dispatcher.once("a", aCounter);
                 dispatcher.once("b", bCounter);
                 dispatcher.trigger("a");
@@ -24,8 +19,8 @@ describe('evently', function () {
                 dispatcher.trigger("b");
                 dispatcher.trigger("a");
                 dispatcher.trigger("a");
-                assert(aCount === 1);
-                assert(bCount === 1);
+                assert(aCounter.calledOnce);
+                assert(bCounter.calledOnce);
             });
         });
     });
@@ -33,14 +28,8 @@ describe('evently', function () {
         describe('#once', function () {
             it('should fire once', function () {
                 var StaticDispatcher = evently.static;
-                var aCount = 0;
-                var bCount = 0;
-                var aCounter = function () {
-                    aCount++;
-                }
-                var bCounter = function () {
-                    bCount++;
-                }
+                var aCounter = sinon.spy();
+                var bCounter = sinon.spy();
                 StaticDispatcher.once("a", aCounter);
                 StaticDispatcher.once("b", bCounter);
                 StaticDispatcher.trigger("a");
@@ -50,8 +39,8 @@ describe('evently', function () {
                 StaticDispatcher.trigger("b");
                 StaticDispatcher.trigger("a");
                 StaticDispatcher.trigger("a");
-                assert(aCount === 1);
-                assert(bCount === 1);
+                assert(aCounter.calledOnce);
+                assert(bCounter.calledOnce);
             });
         });
     });

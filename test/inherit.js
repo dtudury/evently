@@ -1,4 +1,5 @@
 var assert = require('assert');
+var sinon = require('sinon');
 var evently = require('../index');
 
 
@@ -8,16 +9,12 @@ describe('evently.Dispatcher', function () {
         MyDispatcherClass.prototype = new evently.Dispatcher();
         var a = new MyDispatcherClass();
         var b = new MyDispatcherClass();
-        var aCount = 0;
-        var bCount = 0;
-        a.on("x", function () {
-            aCount++;
-        });
-        b.on("x", function () {
-            bCount++;
-        });
+        var aCounter = sinon.spy();
+        var bCounter = sinon.spy();
+        a.on("x", aCounter);
+        b.on("x", bCounter);
         a.trigger("x");
-        assert(aCount === 1);
-        assert(bCount === 0);
+        assert(aCounter.calledOnce);
+        assert(!bCounter.called);
     });
 });
