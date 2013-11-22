@@ -5,13 +5,13 @@ function Dispatcher() {
         var map, index, maps = (this.maps || (this.maps = {}));
         if ((map = maps[id]) && ~(index = map.indexOf(f)))
             map.splice(index, 1);
-    }
+    };
 
 
     this.on = this.addListener = this.addEventListener = function (id, f) {
         this.off(id, f);
         (this.maps[id] || (this.maps[id] = [])).push(f);
-    }
+    };
 
 
     this.once = function (id, f) {
@@ -20,7 +20,7 @@ function Dispatcher() {
             self.off(id, wrapped);
             f(event);
         });
-    }
+    };
 
 
     this.stop = this.stopListening = this.removeAllEventListeners = function (id) {
@@ -28,7 +28,7 @@ function Dispatcher() {
             delete this.maps[id];
         else
             this.maps = {};
-    }
+    };
 
 
     this.dispatch = this.trigger = this.emit = function (id, event) {
@@ -37,10 +37,10 @@ function Dispatcher() {
             map.forEach(function (f) {
                 f(event);
             });
-    }
+    };
 
 
-};
+}
 
 
 exports.Dispatcher = Dispatcher;
