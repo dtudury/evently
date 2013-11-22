@@ -1,58 +1,47 @@
-exports.Dispatcher = function () {
+function Dispatcher() {
 
 
-    var self = this;
-    var maps = {};
-
-
-    function off(id, f) {
-        var map, index;
+    this.off = this.removeEventListener = function (id, f) {
+        var map, index, maps = (this.maps || (this.maps = {}));
         if ((map = maps[id]) && ~(index = map.indexOf(f)))
             map.splice(index, 1);
     }
 
 
-    function on(id, f) {
-        off(id, f);
-        (maps[id] || (maps[id] = [])).push(f);
+    this.on = this.addListener = function (id, f) {
+        this.off(id, f);
+        (this.maps[id] || (this.maps[id] = [])).push(f);
     }
 
 
-    function once(id, f) {
-        on(id, function wrapped(event) {
-            off(id, wrapped);
+    this.once = function (id, f) {
+        var self = this;
+        this.on(id, function wrapped(event) {
+            self.off(id, wrapped);
             f(event);
         });
     }
 
 
-    function stopListening(event) {
-        if (event)
-            delete maps[event];
+    this.stopListening = this.removeAllEventListeners = function (id) {
+        if (this.maps && id)
+            delete this.maps[id];
         else
-            maps = {};
+            this.maps = {};
     }
 
 
-    function dispatch(id, event) {
+    this.dispatch = this.trigger = this.emit = function (id, event) {
         var map;
-        if (map = maps[id])
+        if (this.maps && (map = this.maps[id]))
             map.forEach(function (f) {
                 f(event);
             });
     }
 
 
-    self.on = on;
-    self.addListener = on;
-    self.once = once;
-    self.off = off;
-    self.removeEventListener = off;
-    self.stopListening = stopListening;
-    self.removeAllEventListeners = stopListening;
-    self.dispatch = dispatch;
-    self.trigger = dispatch;
-    self.emit = dispatch;
-
-
 };
+
+
+exports.Dispatcher = Dispatcher;
+exports.static = new Dispatcher();
