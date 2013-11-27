@@ -24,26 +24,6 @@ describe('evently', function () {
             });
         });
     });
-    describe('static', function () {
-        describe('#once', function () {
-            it('should fire once', function () {
-                var StaticDispatcher = evently.static;
-                var aCounter = sinon.spy();
-                var bCounter = sinon.spy();
-                StaticDispatcher.once("a", aCounter);
-                StaticDispatcher.once("b", bCounter);
-                StaticDispatcher.trigger("a");
-                StaticDispatcher.trigger("a");
-                StaticDispatcher.trigger("b");
-                StaticDispatcher.trigger("b");
-                StaticDispatcher.trigger("b");
-                StaticDispatcher.trigger("a");
-                StaticDispatcher.trigger("a");
-                assert(aCounter.calledOnce);
-                assert(bCounter.calledOnce);
-            });
-        });
-    });
 });
 
 

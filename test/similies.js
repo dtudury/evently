@@ -5,7 +5,7 @@ var evently = require('../index');
 
 describe('evently.Dispatcher #removeEventListener #addListener #stopListening #removeAllEventListeners #trigger #emit', function () {
     it('should allow method names from popular libraries', function () {
-        var a = evently.static;
+        var a = new evently.Dispatcher();
         var counter = sinon.spy();
 
         a.addListener("a", counter);

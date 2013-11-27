@@ -1,3 +1,6 @@
+exports.Dispatcher = Dispatcher;
+
+
 function Dispatcher() {
 
 
@@ -41,7 +44,3 @@ function Dispatcher() {
 
 
 }
-
-
-exports.Dispatcher = Dispatcher;
-exports.static = new Dispatcher();
