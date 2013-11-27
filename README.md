@@ -1,6 +1,8 @@
 # evently
 
-  simple js event-like function stacks
+  simpler faster lighter single-argument event-like function stacks for javascript
+
+  also available in a slightly faster [singleton version](https://github.com/dtudury/static-evently)
 
   [![Build Status](https://travis-ci.org/dtudury/evently.png)](https://travis-ci.org/dtudury/evently)
 
